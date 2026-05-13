@@ -87,6 +87,11 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 .submit-result{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:14px;display:none}
 .submit-result.ok{display:block;background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
 .submit-result.err{display:block;background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.submit-prompt-wrap{margin-top:16px;border:2px solid var(--accent);border-radius:var(--radius);overflow:hidden}
+.submit-prompt-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--accent);color:#fff;font-size:13px}
+.submit-prompt-header .copy-btn{background:rgba(255,255,255,.2);color:#fff;border:none;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:13px}
+.submit-prompt-header .copy-btn:hover{background:rgba(255,255,255,.35)}
+.submit-prompt{margin:0;padding:16px;background:#f8fafc;font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;max-height:400px;overflow-y:auto}
 
 .home-section-title{font-size:14px;font-weight:700;color:var(--sub);margin:24px 0 8px;padding-top:16px;border-top:1px solid var(--border)}
 .home-footer{text-align:center;padding:20px;color:var(--sub);font-size:12px;margin-top:12px;border-top:1px solid var(--border)}
@@ -1974,12 +1979,14 @@ function updateProgress(){
 // ── Scroll top button ──
 window.addEventListener('scroll',()=>document.getElementById('scrollBtn').classList.toggle('show',window.scrollY>400));
 
-// ── Submit worksheet ──
-async function submitWorksheet(){
+// ── Submit worksheet (Dooray MCP prompt generation) ──
+function submitWorksheet(){
   const name=document.getElementById('submitName');
   const team=document.getElementById('submitTeam');
   const btn=document.getElementById('submitBtn');
   const result=document.getElementById('submitResult');
+  const promptWrap=document.getElementById('submitPromptWrap');
+  const promptEl=document.getElementById('submitPrompt');
 
   if(!name||!name.value.trim()){
     showToast('⚠️ 이름을 입력해주세요');
@@ -1987,46 +1994,77 @@ async function submitWorksheet(){
     return;
   }
 
-  btn.disabled=true;
-  btn.textContent='제출 중...';
-  result.className='submit-result';
-  result.style.display='none';
-
-  const checks=[...document.querySelectorAll('.cl input[type=checkbox]')].map(c=>c.checked);
+  const checks=[...document.querySelectorAll('.cl input[type=checkbox]')];
   const memos={};
-  document.querySelectorAll('.memo').forEach(m=>memos[m.id]=m.value);
+  document.querySelectorAll('.memo').forEach(m=>{if(m.value.trim()) memos[m.id]=m.value.trim()});
 
-  try{
-    const resp=await fetch('/api/submit',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        name:name.value.trim(),
-        team:team?team.value.trim():'',
-        checks,memos
-      })
+  const total=checks.length;
+  const done=checks.filter(c=>c.checked).length;
+  const pct=total?Math.round(done/total*100):0;
+
+  const checkLabels=[
+    '[사전] 노트북 전원 연결됨','[사전] Wi-Fi 연결됨','[사전] Claude 유료 계정 로그인 가능',
+    '[실습3] 방법 A 선택 (내 업무 파일)','[실습3] 방법 B 선택 (시나리오)',
+    '[성과] Claude Code 설치 완료','[성과] 첫 대화 성공','[성과] 엑셀 데이터 분석 해봄',
+    '[성과] 보고서 자동 생성 해봄','[성과] 메일 초안 작성 해봄','[성과] 나만의 업무에 적용 시도함',
+    '[Dooray 사전] Claude Code 실행 중','[Dooray 사전] Dooray 계정 로그인 가능',
+    '[Dooray A] 내 태스크 목록 확인 완료','[Dooray A] 프로젝트 목록 확인 완료',
+    '[Dooray B] 간단한 태스크 생성 완료','[Dooray B] 상세 태스크 생성 완료','[Dooray B] 두레이 웹에서 태스크 확인 완료',
+    '[Dooray C] 댓글 달기 완료','[Dooray C] 상태 변경 완료',
+    '[Dooray D] 실전 시나리오 실습 완료'
+  ];
+
+  const memoLabels={
+    'memo-step1_memo':'실습 1 메모 — 첫 대화에서 해본 것',
+    'memo-step2_memo':'실습 2 메모 — 실무 활용에서 느낀 점',
+    'memo-step3_task':'실습 3 — 시도한 업무',
+    'memo-step3_result':'실습 3 — 결과',
+    'memo-goal_task':'자동화하고 싶은 업무',
+    'memo-goal_time':'예상 절감 시간 (주당)',
+    'memo-goal_date':'첫 시도 예정일',
+    'memo-dooray_memo':'Dooray 실습 메모'
+  };
+
+  let body='## '+name.value.trim()+'님 실습 워크시트\n';
+  body+='- 소속: '+(team&&team.value.trim()?team.value.trim():'미입력')+'\n';
+  body+='- 진행률: '+done+'/'+total+' ('+pct+'%)\n\n';
+
+  body+='## 체크리스트\n';
+  checks.forEach((c,i)=>{
+    const label=i<checkLabels.length?checkLabels[i]:('항목 '+(i+1));
+    body+='- '+(c.checked?'[x]':'[ ]')+' '+label+'\n';
+  });
+  body+='\n';
+
+  const memoKeys=Object.keys(memoLabels);
+  const hasMemo=memoKeys.some(k=>memos[k]);
+  if(hasMemo){
+    body+='## 메모 내용\n';
+    memoKeys.forEach(k=>{
+      if(memos[k]){
+        body+='### '+memoLabels[k]+'\n'+memos[k]+'\n\n';
+      }
     });
-    const data=await resp.json();
-    if(resp.ok){
-      result.className='submit-result ok';
-      result.textContent='✅ '+data.message;
-      result.style.display='block';
-      showToast('✅ 제출 완료! 수고하셨습니다!');
-      btn.textContent='✅ 제출 완료';
-    }else{
-      result.className='submit-result err';
-      result.textContent='❌ '+(data.error||'제출 실패');
-      result.style.display='block';
-      btn.disabled=false;
-      btn.textContent='📮 실습 워크시트 제출하기';
-    }
-  }catch(e){
-    result.className='submit-result err';
-    result.textContent='❌ 네트워크 오류: '+e.message;
-    result.style.display='block';
-    btn.disabled=false;
-    btn.textContent='📮 실습 워크시트 제출하기';
   }
+
+  const prompt='Dooray MCP를 사용해서 프로젝트 ID 2102326611546179798에 태스크를 생성해줘.\n\n'
+    +'제목: [쉐어클래스] '+name.value.trim()+'님 실습 워크시트 ('+pct+'%)\n\n'
+    +'본문 (마크다운):\n```\n'+body+'```\n\n'
+    +'담당자: 내 이름으로 검색해서 지정해줘\n'
+    +'참조자: 정유경 (검색해서 지정)';
+
+  promptEl.textContent=prompt;
+  promptWrap.style.display='block';
+  result.className='submit-result ok';
+  result.textContent='✅ 프롬프트가 생성되었습니다. 아래 내용을 복사해서 Claude Code에 붙여넣으세요!';
+  result.style.display='block';
+  btn.textContent='✅ 프롬프트 생성 완료';
+  showToast('✅ 프롬프트 생성 완료! 아래에서 복사하세요');
+}
+
+function copySubmitPrompt(){
+  const text=document.getElementById('submitPrompt').textContent;
+  navigator.clipboard.writeText(text).then(()=>showToast('📋 프롬프트가 복사되었습니다!')).catch(()=>showToast('⚠️ 복사 실패 — 직접 선택하여 복사해주세요'));
 }
 
 // ── Init ──
