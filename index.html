@@ -2047,10 +2047,10 @@ function submitWorksheet(){
     });
   }
 
-  const prompt='Dooray MCP를 사용해서 프로젝트 ID 2102326611546179798에 태스크를 생성해줘.\n\n'
+  const prompt='Dooray MCP를 사용해서 내 개인 프로젝트에 태스크를 생성해줘.\n\n'
     +'제목: [쉐어클래스] '+name.value.trim()+'님 실습 워크시트 ('+pct+'%)\n\n'
     +'본문 (마크다운):\n```\n'+body+'```\n\n'
-    +'담당자: 내 이름으로 검색해서 지정해줘\n'
+    +'담당자: 나\n'
     +'참조자: 정유경 (검색해서 지정)';
 
   promptEl.textContent=prompt;
