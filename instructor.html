@@ -196,7 +196,7 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 
 <header class="hdr">
   <span class="hdr-title">[AI School/쉐어클래스] 4월 '비개발자를 위한 AI 업무 자동화 입문'</span>
-  <a href="/" class="sw-link">수강생 페이지 →</a>
+  <a href="index.html" class="sw-link">수강생 페이지 →</a>
 </header>
 
 <nav class="tabs"><button class="tab active" data-tab="home" onclick="switchTab('home')">🏠 홈</button><button class="tab" data-tab="guide" onclick="switchTab('guide')">🎤 강의 대본</button><button class="tab" data-tab="files" onclick="switchTab('files')">📁 실습 파일</button><button class="tab" data-group="준비" onclick="switchGroup('준비')">💻 준비</button><button class="tab" data-group="이론" onclick="switchGroup('이론')">🔐 이론</button><button class="tab" data-group="실습" onclick="switchGroup('실습')">🔰 실습</button><button class="tab" data-group="활용" onclick="switchGroup('활용')">📋 활용</button><button class="tab" data-tab="assistant" onclick="switchTab('assistant')">🤝 보조강사 가이드</button><button class="tab" data-tab="survey" onclick="switchTab('survey')">📊 설문 분석</button></nav>
@@ -2521,11 +2521,17 @@ claude --dangerously-skip-permissions
 <p><strong>일반 vs Ralph vs Skip Permissions 비교:</strong></p>
 
 <div class="tbl-wrap"><table><thead><tr>
-<th>권한 확인</th>
-<th>매번 물어봄</th>
-<th>매번 물어봄</th>
-<th>전혀 안 물어봄</th>
+<th>항목</th>
+<th>일반 모드</th>
+<th>Ralph 모드</th>
+<th>Skip Permissions</th>
 </tr></thead><tbody>
+<tr>
+<td>권한 확인</td>
+<td>매번 물어봄</td>
+<td>매번 물어봄</td>
+<td>전혀 안 물어봄</td>
+</tr>
 <tr>
 <td>자동 진행</td>
 <td>단계마다 확인</td>
