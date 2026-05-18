@@ -872,34 +872,34 @@ claude
 <h2>14-1. 권한 모드 + 스킬 활용법</h2>
 <span class="timer-badge">⏱ 3분</span>
 
-<h3>1, 2, 3 선택지 — 뭘 골라야 하나요?</h3>
+<h3>1, 2, 3 선택지 — 뭘 누르면 되냐면?</h3>
 
-<p>Claude Code가 파일을 읽거나 명령을 실행할 때 <strong>허용 여부</strong>를 물어봅니다.</p>
+<p>Claude Code가 파일을 읽거나 명령을 실행하기 전에 이렇게 물어봐요 👇</p>
 
 <div class="tbl-wrap"><table><thead><tr>
-<th>선택</th>
+<th>번호</th>
+<th>화면 문구</th>
 <th>의미</th>
-<th>비유</th>
 </tr></thead><tbody>
 <tr>
-<td><strong>1</strong> Allow once</td>
+<td><strong>1</strong></td>
+<td>Yes</td>
 <td>이번 한 번만 허용</td>
-<td>"이 회의실만 쓰세요"</td>
 </tr>
 <tr>
-<td><strong>2</strong> Allow for session</td>
-<td>이번 대화 동안 허용</td>
-<td>"오늘 하루는 자유롭게"</td>
+<td><strong>2</strong></td>
+<td>Yes, and don't ask again</td>
+<td>이 명령어는 앞으로 묻지 말고 항상 실행</td>
 </tr>
 <tr>
-<td><strong>3</strong> Always allow</td>
-<td>앞으로 계속 허용</td>
-<td>"출입증 드릴게요"</td>
+<td><strong>3</strong></td>
+<td>No</td>
+<td>취소</td>
 </tr>
 </tbody></table></div>
 
-<blockquote>실습 중에는 <strong>2번</strong>(세션 허용)을 권장합니다. 매번 물어보면 흐름이 끊기거든요.</blockquote>
-<blockquote>잘못 선택해도 <code class="il">/permissions</code>로 언제든 변경 가능합니다.</blockquote>
+<blockquote>👉 그냥 <strong>1번 (Yes)</strong> 누르세요.<br>매번 확인이 귀찮아지면 <strong>2번</strong> — 근데 <strong>처음엔 1번 추천</strong>! 어떤 명령이 도는지 감을 잡아야 안전하게 2번을 쓸 수 있어요.</blockquote>
+<blockquote>잘못 눌러도 <code class="il">/permissions</code>로 언제든 다시 바꿀 수 있습니다.</blockquote>
 
 <h3>Plan Mode — 계획 먼저, 실행은 나중에</h3>
 
@@ -2219,70 +2219,73 @@ claude /doctor
 
 <h2>권한 모드: 1, 2, 3 선택지</h2>
 
-<p>Claude Code를 실행하면 파일을 읽거나 명령을 실행할 때 <strong>권한 확인</strong>을 합니다.</p>
-<p>이때 1, 2, 3 중 하나를 선택하게 됩니다.</p>
+<p>Claude Code가 파일을 읽거나 명령을 실행하기 전에, 이렇게 물어봐요 👇</p>
 
-<h3>한눈에 비교</h3>
+<h3>화면에 뜨는 그대로</h3>
 
 <div class="tbl-wrap"><table><thead><tr>
-<th>선택</th>
-<th>이름</th>
+<th>번호</th>
+<th>화면 문구</th>
 <th>의미</th>
-<th>언제 쓰나</th>
 </tr></thead><tbody>
 <tr>
 <td><strong>1</strong></td>
-<td>Allow once</td>
-<td><strong>이번 한 번만</strong> 허용</td>
-<td>잘 모르겠을 때, 처음 써볼 때</td>
+<td>Yes</td>
+<td>이번 한 번만 허용</td>
 </tr>
 <tr>
 <td><strong>2</strong></td>
-<td>Allow for this session</td>
-<td><strong>이번 대화 동안</strong> 허용 (같은 종류의 요청 자동 승인)</td>
-<td>실습 중 반복 허용이 번거로울 때</td>
+<td>Yes, and don't ask again</td>
+<td>이 명령어는 앞으로 묻지 말고 항상 실행</td>
 </tr>
 <tr>
 <td><strong>3</strong></td>
-<td>Always allow</td>
-<td><strong>앞으로 계속</strong> 허용 (다음 대화에서도 자동 승인)</td>
-<td>익숙해진 후, 매번 물어보는 게 번거로울 때</td>
+<td>No</td>
+<td>취소</td>
 </tr>
 </tbody></table></div>
+
+<h3>🤔 그래서 뭘 누르면 되냐면</h3>
+
+<blockquote>
+👉 그냥 <strong>1번 (Yes)</strong> 누르세요.<br><br>
+매번 확인 뜨는 게 귀찮아지면 <strong>2번</strong> — 근데 <strong>처음엔 1번 추천</strong>!<br>
+어떤 명령이 도는지 감을 잡아야, 안전하게 2번을 쓸 수 있어요.
+</blockquote>
 
 <h3>비유로 이해하기</h3>
 
 <ul>
-<li><strong>1번</strong> = 사무실 방문객에게 "이 회의실만 쓰세요" (한 번)</li>
-<li><strong>2번</strong> = "오늘 하루는 자유롭게 다니세요" (세션)</li>
-<li><strong>3번</strong> = "출입증 드릴게요, 매번 안 물어볼게요" (영구)</li>
+<li><strong>1번 (Yes)</strong> = 방문객에게 "이번에만 들어오세요" — 매번 다시 물어봄</li>
+<li><strong>2번 (Yes, don't ask again)</strong> = "같은 일은 앞으로 묻지 않을게요" — 출입증 발급</li>
+<li><strong>3번 (No)</strong> = "아뇨, 하지 마세요" — 그냥 취소</li>
 </ul>
 
-<h3>어떤 걸 선택해야 하나요?</h3>
+<h3>어떤 걸 누르면 좋을까요?</h3>
 
 <div class="tbl-wrap"><table><thead><tr>
 <th>상황</th>
 <th>권장</th>
 </tr></thead><tbody>
 <tr>
-<td>교육 중 실습</td>
-<td><strong>2번</strong> (세션 허용) — 매번 물어보면 실습 흐름이 끊깁니다</td>
+<td>교육 중 실습 (처음 며칠)</td>
+<td><strong>1번 (Yes)</strong> — 뭐가 실행되는지 눈으로 확인하세요</td>
 </tr>
 <tr>
-<td>처음 써보는 명령</td>
-<td><strong>1번</strong> (한 번만) — 어떤 일이 일어나는지 확인 후 판단</td>
-</tr>
-<tr>
-<td>매일 반복하는 작업</td>
-<td><strong>3번</strong> (항상 허용) — 파일 읽기, 폴더 조회 등 안전한 작업</td>
+<td>같은 명령이 반복돼서 귀찮을 때</td>
+<td><strong>2번 (Yes, don't ask again)</strong> — 한 번만 허용해두면 다시 안 물어봐요</td>
 </tr>
 <tr>
 <td>파일 삭제/수정 요청</td>
-<td><strong>1번</strong> (한 번만) — 중요한 파일 건드릴 때는 신중하게</td>
+<td><strong>1번 (Yes)</strong> — 중요 파일은 매번 확인하는 게 안전</td>
+</tr>
+<tr>
+<td>"이거 좀 위험할 것 같은데..." 싶을 때</td>
+<td><strong>3번 (No)</strong> — 일단 취소하고 다시 물어보면 됩니다</td>
 </tr>
 </tbody></table></div>
 
-<blockquote>잘못 선택해도 걱정하지 마세요! <code class="il">/permissions</code> 명령어로 언제든 권한 설정을 변경할 수 있습니다.</blockquote>
+<blockquote>잘못 눌러도 괜찮아요! <code class="il">/permissions</code> 명령어로 언제든 권한 설정을 다시 바꿀 수 있습니다.</blockquote>
 
 
 <h2>고급 실행 모드</h2>
