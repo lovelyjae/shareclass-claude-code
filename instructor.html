@@ -5111,10 +5111,10 @@ Claude Code는 CLAUDE.md를 읽어서 기억합니다.
 </tr>
 <tr>
 <td>요금</td>
-<td>무료 + Pro($20)</td>
-<td>Pro 이상 필수</td>
-<td>Pro 이상 필수</td>
-<td>Pro 이상 필수</td>
+<td>무료 + Pro/Max</td>
+<td>유료 플랜 (Pro/Max/Team/Enterprise)</td>
+<td>유료 플랜 (Pro/Max/Team/Enterprise)</td>
+<td>유료 플랜 (Pro/Max/Team/Enterprise)</td>
 </tr>
 <tr>
 <td>플랫폼</td>
@@ -5159,10 +5159,12 @@ Claude Code는 CLAUDE.md를 읽어서 기억합니다.
 <h2>2. Cowork (데스크톱 앱 내 기능)</h2>
 
 <blockquote><strong>오늘 교육에서 다루지 않았지만, 비개발자에게 가장 추천하는 기능입니다!</strong></blockquote>
+<blockquote>📅 2026년 1월 Mac 출시 → 2월 Windows 출시 (정식 GA)</blockquote>
 
 <h3>Cowork란?</h3>
 
-<p>Claude 데스크톱 앱에 있는 <strong>자율 작업 모드</strong>입니다. 할 일을 설명하면 Claude가 <strong>혼자서 알아서</strong> 처리하고, 끝나면 결과물을 보여줍니다.</p>
+<p>Claude 데스크톱 앱의 <strong>Cowork 탭</strong>에서 사용하는 <strong>자율 작업 모드</strong>입니다. 할 일을 설명하면 Claude가 <strong>혼자서 알아서</strong> 처리하고, 끝나면 결과물을 보여줍니다.</p>
+<p>Anthropic이 명시적으로 <strong>"지식 노동자(knowledge worker)용"</strong>으로 포지셔닝한 제품 — Claude Code(개발자용)와 짝을 이룹니다.</p>
 
 <h3>claude.ai와 뭐가 다른가요?</h3>
 
@@ -5201,11 +5203,11 @@ Claude Code는 CLAUDE.md를 읽어서 기억합니다.
 <h3>이렇게 씁니다</h3>
 
 <ul>
-<li>Claude 데스크톱 앱 실행</li>
-<li>상단 <strong>Cowork</strong> 탭 클릭</li>
+<li>Claude 데스크톱 앱 실행 (Chat / <strong>Cowork</strong> / Code 세 탭이 보임)</li>
+<li>상단 <strong>Cowork</strong> 탭 클릭 → 모드가 "Tasks"로 전환</li>
 <li>작업 설명 입력 (예: "Downloads 폴더의 엑셀 파일 10개를 하나로 합쳐줘")</li>
-<li>Claude가 자율적으로 작업 시작</li>
-<li>완료되면 결과 확인</li>
+<li>Claude가 <strong>먼저 작업 계획을 보여주고</strong>, 승인하면 자율 실행</li>
+<li>완료되면 결과 확인 (모바일로도 작업 지시 가능 — Pro/Max)</li>
 </ul>
 
 <h3>비개발자 활용 예시</h3>
@@ -5225,25 +5227,31 @@ Claude Code는 CLAUDE.md를 읽어서 기억합니다.
 <h3>주의사항</h3>
 
 <ul>
-<li>인터넷 검색은 불가 (내 파일만 작업)</li>
-<li>데스크톱 앱이 켜져 있어야 함</li>
-<li>Pro($20/월) 이상 구독 필요</li>
+<li><strong>데스크톱 앱이 켜져 있어야</strong> 작업이 진행됨 (예약 작업도 컴퓨터가 깨어있어야 작동)</li>
+<li><strong>세션 간 기억 안 됨</strong> — 각 Cowork 세션이 독립적 (Projects 안에서는 일부 기억)</li>
+<li><strong>사용량 소모 큼</strong> — 일반 채팅보다 훨씬 많이 씀 (compute-intensive). 사용량 모니터링 권장</li>
+<li><strong>유료 플랜 필수</strong> — Pro / Max / Team / Enterprise (Free 불가)</li>
+<li>모바일에서 작업 지시만 가능 (Pro/Max 베타), 실행은 데스크톱에서</li>
 </ul>
 
 
-<h2>3. Code 앱 (데스크톱)</h2>
+<h2>3. Code 탭 (데스크톱 앱)</h2>
 
-<h3>오늘 교육에서 쓴 건 사실 이것!</h3>
+<blockquote>같은 Claude 데스크톱 앱의 <strong>Code 탭</strong>입니다. Claude Code(CLI)와 동일한 엔진을 GUI로 사용.</blockquote>
 
-<p>Claude Code 데스크톱 앱의 <strong>Code 탭</strong>은 시각적 인터페이스로 코드를 편집합니다.</p>
+<h3>오늘 교육에서 쓴 CLI와의 관계</h3>
 
-<h3>주요 특징</h3>
+<p>오늘 우리가 터미널에서 <code class="il">claude</code>로 실행한 CLI와 <strong>같은 엔진</strong>입니다. 차이는 "보이는 방식"뿐.</p>
+
+<h3>주요 특징 (Pane 기반 인터페이스)</h3>
 
 <ul>
-<li><strong>Diff 뷰</strong>: 파일 변경 전/후를 나란히 비교</li>
-<li><strong>실시간 미리보기</strong>: 웹앱, HTML 결과를 바로 확인</li>
-<li><strong>터미널 내장</strong>: Ctrl+\` 으로 터미널 열기</li>
-<li><strong>여러 세션 병렬 관리</strong>: 여러 프로젝트 동시 작업</li>
+<li><strong>Chat pane</strong>: Claude와 대화 (CLI의 기본 대화창에 해당)</li>
+<li><strong>Diff pane</strong>: 파일 변경 전/후를 나란히 비교</li>
+<li><strong>Preview pane</strong>: 웹앱/HTML 결과 바로 확인</li>
+<li><strong>Terminal pane</strong>: 내장 터미널 (Cmd+\` / Ctrl+\` 으로 토글)</li>
+<li><strong>File · Plan · Tasks · Subagent pane</strong>: 드래그로 자유 배치, 모서리로 크기 조절</li>
+<li>각 대화가 <strong>독립 세션</strong> — 프로젝트 폴더·이력·변경 사항이 세션마다 분리</li>
 </ul>
 
 
