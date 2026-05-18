@@ -267,14 +267,14 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
   <div class="card card-red" onclick="switchTab('assistant')"><div class="card-icon">🤝</div><h3>보조강사 가이드</h3><p>구역별 역할, 트러블슈팅 매뉴얼, FAQ</p></div>
   <div class="card card-red" onclick="switchTab('survey')"><div class="card-icon">📊</div><h3>설문 분석</h3><p>108명 응답 분석, 니즈 TOP 5, 커리큘럼 반영</p></div>
 </div>
-<div class="home-footer">NHN Cloud 파트너지원팀 | 문의: yk.j@nhn.com</div></div><div class="tc" id="tab-guide" style="display:none"><h1>비개발자를 위한 Claude Code 업무 자동화 입문</h1>
+<div class="home-footer">문의: NHN Cloud 파트너지원팀 정유경 전임 (yk.j@nhn.com) 또는 두레이 주세요!</div></div><div class="tc" id="tab-guide" style="display:none"><h1>비개발자를 위한 Claude Code 업무 자동화 입문</h1>
 
 <blockquote>강사: 정유경 전임 (NHN Cloud 파트너지원팀)</blockquote>
 <blockquote>일시: 2026.05.19(화) 14:00~16:00 (120분)</blockquote>
 <blockquote>대상: 비개발 직군 40명 (Claude Code 미경험자 중심)</blockquote>
 
 
-<h2>Part 1: 왜 & 뭐 (20분)</h2>
+<h2>Part 1: 왜 & 뭐 (25분)</h2>
 
 <div class="slide"><span class="slide-label">14:00</span>
 <h2>1. 오프닝</h2>
@@ -303,6 +303,119 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 
 
 <div class="slide"><span class="slide-label">14:03</span>
+<h2>✨ 시작 전에 — 오늘 가장 비싼 도구를 알려드릴게요</h2>
+<span class="timer-badge">⏱ 3분</span>
+
+<h3>그건 코딩이 아니라, <strong>사전</strong>입니다 📖</h3>
+
+<p>같은 Claude Code를 써도 결과가 다른 이유는, <strong>"내가 AI에게 뭐라고 부르는지"</strong>가 다르기 때문입니다.</p>
+
+<h3>모르는 사람 vs 아는 사람 — 같은 일, 다른 결과</h3>
+
+<div class="tbl-wrap"><table><thead><tr>
+<th>영역</th>
+<th>모르는 사람의 프롬프트</th>
+<th>아는 사람의 프롬프트</th>
+</tr></thead><tbody>
+<tr>
+<td>데이터 분석</td>
+<td>"이 숫자들 중에 평균에서 많이 벗어난 거 찾아줘"</td>
+<td>"<strong>이상치 탐지</strong>해줘"</td>
+</tr>
+<tr>
+<td>보고서 작성</td>
+<td>"결론 먼저, 근거 나중에 쓰는 식으로"</td>
+<td>"<strong>두괄식</strong>으로 / <strong>BLUF</strong>로"</td>
+</tr>
+<tr>
+<td>회계/정산</td>
+<td>"이 금액 중에 좀 이상한 거 찾아줘"</td>
+<td>"<strong>대사 작업</strong>해줘"</td>
+</tr>
+<tr>
+<td>계약 검토</td>
+<td>"우리가 불리하지 않게 조건 봐줘"</td>
+<td>"<strong>독소조항</strong> 체크해줘"</td>
+</tr>
+</tbody></table></div>
+
+<blockquote>
+👉 풀어 설명하면 AI가 <strong>"많이"의 기준을 멋대로</strong> 잡아버립니다.<br>
+<strong>개념어 하나가 프롬프트 50줄을 이깁니다.</strong>
+</blockquote>
+
+<div class="demo-box">
+<h3>🎬 강사 라이브 시연 (90초)</h3>
+<ol>
+<li>매출 데이터 열어두고 <strong>모르는 사람 버전</strong> → "평균에서 많이 벗어난 거 찾아줘"</li>
+<li>결과 보여주기 (Claude가 "많이"의 기준을 임의로 잡음)</li>
+<li>같은 데이터에 <strong>아는 사람 버전</strong> → "이상치 탐지해줘"</li>
+<li>결과 비교 (IQR/Z-score 자동 적용된 깔끔한 결과)</li>
+<li>한 마디: <strong>"달라진 건 AI가 아니에요. 제가 쓴 단어예요."</strong></li>
+</ol>
+</div>
+
+<details class="note"><summary>📋 강사 노트 (클릭하여 펼치기)</summary><div class="note-body">
+<p><strong>오프닝 멘트:</strong> "오늘 가장 비싼 도구를 알려드릴게요. 그건 Claude Code가 아니라... <strong>사전</strong>이에요."</p>
+
+<p><strong>핵심 메시지:</strong> 같은 AI 앞에서 격차를 만드는 건 코딩 실력이 아니라 어휘력이라는 사실. 이 한 줄이 강의 전체를 관통하는 닻이 됩니다.</p>
+
+<p><strong>주의:</strong> "프롬프트 엔지니어링"이라는 진부한 표현 X. "사전"이라는 비유로 시작해야 즉시 청중이 집중함.</p>
+</div></details>
+</div>
+
+
+<div class="slide"><span class="slide-label">14:06</span>
+<h2>✨ 시작 전에 — 처음 듣는 단어 몇 개세요?</h2>
+<span class="timer-badge">⏱ 2분</span>
+
+<h3>🙋 자가진단 — 손들기 게임</h3>
+
+<p>아래 단어 중 <strong>의미를 정확히 모르는 게 3개 이상</strong>이면 손들어 주세요.</p>
+
+<div class="tbl-wrap"><table><thead><tr>
+<th>영역</th>
+<th>개념어</th>
+<th>한 줄 설명</th>
+</tr></thead><tbody>
+<tr><td>분석</td><td>이상치 (outlier)</td><td>평균에서 통계적으로 벗어난 값</td></tr>
+<tr><td>보고서</td><td>두괄식 / BLUF</td><td>결론 → 근거 순서</td></tr>
+<tr><td>마케팅</td><td>PAS 구조</td><td>Problem → Agitation → Solution</td></tr>
+<tr><td>회계</td><td>대사 (reconciliation)</td><td>두 장부 금액을 맞춰보는 작업</td></tr>
+<tr><td>인사</td><td>BEI 질문</td><td>행동사건면접 (과거 실제 행동 묻기)</td></tr>
+<tr><td>협상</td><td>BATNA</td><td>협상 결렬 시의 차선책</td></tr>
+<tr><td>회의</td><td>타임박싱</td><td>어젠다별 시간 상한 설정</td></tr>
+<tr><td>UX</td><td>닐슨 휴리스틱 10</td><td>사용성 평가 10원칙</td></tr>
+<tr><td>계약</td><td>독소조항</td><td>일방에 매우 불리한 조항</td></tr>
+</tbody></table></div>
+
+<h3>왜 단어 하나가 결과를 바꿀까요?</h3>
+
+<ul>
+<li><strong>① 압축률</strong>: "이상치"(3글자) = "평균에서 표준편차 2배 이상 벗어난 값"(20글자+). 짧고 정확한 토큰일수록 AI가 정답으로 직진합니다.</li>
+<li><strong>② 학습 정합성</strong>: AI는 전문 매뉴얼에서 이 단어들과 <strong>그 결과물을 짝지어</strong> 학습했어요. 단어 하나로 정답 템플릿이 자동 호출됩니다.</li>
+<li><strong>③ 모호성 누적</strong>: "많이"를 한 번 임의로 잡으면, 5단계 거치는 동안 원본과 완전히 다른 결과가 됩니다 (compounding error).</li>
+</ul>
+
+<blockquote>
+<strong>"AI는 내 어휘력의 거울입니다. 내가 흐릿하게 부르면, 흐릿한 답이 돌아와요."</strong><br>
+오늘 배울 건 Claude Code 사용법이지만, 진짜 배워야 할 건 <strong>'AI에게 뭐라고 부르는지'</strong>입니다.
+</blockquote>
+
+<details class="note"><summary>📋 강사 노트 (클릭하여 펼치기)</summary><div class="note-body">
+<p><strong>운영 흐름 (2분):</strong></p>
+<ul>
+<li>표를 한 줄씩 빠르게 읽으며 "이거 처음 듣는다" 손들기</li>
+<li>3개 이상 손드신 분이 있을 때 멘트: "<strong>오늘 한 단어라도 가져가시면 본전입니다.</strong>"</li>
+<li>거의 다 아시는 분들껜: "오늘은 이 단어들을 AI에게 어떻게 던지는지 보여드릴게요"</li>
+</ul>
+<p><strong>다리 놓기:</strong> "이제 본격적으로 시작합니다. 각 단계마다 '이 작업의 진짜 이름은 뭐지?'를 같이 생각해봅시다. 이게 오늘 가져가실 두 번째 선물이에요."</p>
+<p><strong>주의:</strong> 너무 길어지면 안 됨. 손들기 게임은 30초, 메커니즘은 60초로 컴팩트하게.</p>
+</div></details>
+</div>
+
+
+<div class="slide"><span class="slide-label">14:08</span>
 <h2>2. AI, 이미 쓰고 계시죠?</h2>
 <span class="timer-badge">⏱ 5분</span>
 
@@ -345,7 +458,7 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 </div>
 
 
-<div class="slide"><span class="slide-label">14:08</span>
+<div class="slide"><span class="slide-label">14:13</span>
 <h2>3. Claude Code = 내 컴퓨터 안의 비서</h2>
 <span class="timer-badge">⏱ 5분</span>
 
@@ -393,7 +506,7 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 </div>
 
 
-<div class="slide"><span class="slide-label">14:13</span>
+<div class="slide"><span class="slide-label">14:18</span>
 <h2>4. 30초 라이브 데모</h2>
 <span class="timer-badge">⏱ 3분</span>
 
@@ -427,7 +540,7 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 </div>
 
 
-<div class="slide"><span class="slide-label">14:16</span>
+<div class="slide"><span class="slide-label">14:21</span>
 <h2>5. 여러분이 요청한 업무, 다 됩니다</h2>
 <span class="timer-badge">⏱ 4분</span>
 
@@ -484,7 +597,7 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 
 <h2>Part 2: 설치하기 (25분)</h2>
 
-<div class="slide"><span class="slide-label">14:20</span>
+<div class="slide"><span class="slide-label">14:25</span>
 <h2>6. 터미널 열기</h2>
 <span class="timer-badge">⏱ 3분</span>
 
@@ -511,7 +624,7 @@ body{font-family:'Pretendard','Noto Sans KR',-apple-system,sans-serif;background
 </div>
 
 
-<div class="slide"><span class="slide-label">14:23</span>
+<div class="slide"><span class="slide-label">14:28</span>
 <h2>7. Node.js 확인</h2>
 <span class="timer-badge">⏱ 3분</span>
 
@@ -541,7 +654,7 @@ node --version
 </div>
 
 
-<div class="slide"><span class="slide-label">14:26</span>
+<div class="slide"><span class="slide-label">14:31</span>
 <h2>8. Claude Code 설치</h2>
 <span class="timer-badge">⏱ 5분</span>
 
@@ -581,7 +694,7 @@ npm install -g @anthropic-ai/claude-code
 </div>
 
 
-<div class="slide"><span class="slide-label">14:31</span>
+<div class="slide"><span class="slide-label">14:36</span>
 <h2>9. 로그인하기</h2>
 <span class="timer-badge">⏱ 4분</span>
 
@@ -619,7 +732,7 @@ claude
 </div>
 
 
-<div class="slide"><span class="slide-label">14:35</span>
+<div class="slide"><span class="slide-label">14:40</span>
 <h2>10. 첫 대화!</h2>
 <span class="timer-badge">⏱ 10분</span>
 
@@ -660,7 +773,7 @@ claude
 </div>
 
 
-<div class="slide"><span class="slide-label">14:45</span>
+<div class="slide"><span class="slide-label">14:50</span>
 <h2>☕ 쉬는 시간</h2>
 <span class="timer-badge">⏱ 5분</span>
 
@@ -685,7 +798,7 @@ claude
 
 <h2>Part 3: 실전 활용 (40분)</h2>
 
-<div class="slide"><span class="slide-label">14:50</span>
+<div class="slide"><span class="slide-label">14:55</span>
 <h2>11. 엑셀 데이터 분석</h2>
 <span class="timer-badge">⏱ 12분</span>
 
@@ -734,7 +847,7 @@ claude
 </div>
 
 
-<div class="slide"><span class="slide-label">15:02</span>
+<div class="slide"><span class="slide-label">15:07</span>
 <h2>12. 보고서 자동 생성</h2>
 <span class="timer-badge">⏱ 10분</span>
 
@@ -776,7 +889,7 @@ claude
 </div>
 
 
-<div class="slide"><span class="slide-label">15:12</span>
+<div class="slide"><span class="slide-label">15:17</span>
 <h2>13. 메일 초안 작성</h2>
 <span class="timer-badge">⏱ 8분</span>
 
@@ -817,7 +930,7 @@ claude
 </div>
 
 
-<div class="slide"><span class="slide-label">15:20</span>
+<div class="slide"><span class="slide-label">15:25</span>
 <h2>14. 프롬프트 잘 쓰는 법</h2>
 <span class="timer-badge">⏱ 5분</span>
 
@@ -868,7 +981,7 @@ claude
 </div>
 
 
-<div class="slide"><span class="slide-label">15:20</span>
+<div class="slide"><span class="slide-label">15:25</span>
 <h2>14-1. 권한 모드 + 스킬 활용법</h2>
 <span class="timer-badge">⏱ 3분</span>
 
@@ -962,7 +1075,7 @@ Level 3: Ralph Mode (자율 실행)        ← 익숙해진 후
 </ul>
 
 
-<div class="slide"><span class="slide-label">15:23</span>
+<div class="slide"><span class="slide-label">15:28</span>
 <h2>15. 내 업무에 적용하기</h2>
 <span class="timer-badge">⏱ 15분</span>
 
@@ -1013,7 +1126,7 @@ Level 3: Ralph Mode (자율 실행)        ← 익숙해진 후
 
 <h2>Part 4: 내일부터 쓰기 (12분)</h2>
 
-<div class="slide"><span class="slide-label">15:38</span>
+<div class="slide"><span class="slide-label">15:43</span>
 <h2>16. CLAUDE.md = 나만의 비서 세팅</h2>
 <span class="timer-badge">⏱ 3분</span>
 
@@ -1046,7 +1159,7 @@ Level 3: Ralph Mode (자율 실행)        ← 익숙해진 후
 </div>
 
 
-<div class="slide"><span class="slide-label">15:41</span>
+<div class="slide"><span class="slide-label">15:46</span>
 <h2>17. 자동화 3단계 로드맵</h2>
 <span class="timer-badge">⏱ 3분</span>
 
@@ -1094,7 +1207,7 @@ Level 3: 출근하면 보고서가 이미 완성되어 있음              (0줄
 </div>
 
 
-<div class="slide"><span class="slide-label">15:44</span>
+<div class="slide"><span class="slide-label">15:49</span>
 <h2>18. 대화 관리 팁</h2>
 <span class="timer-badge">⏱ 2분</span>
 
@@ -1141,7 +1254,7 @@ Level 3: 출근하면 보고서가 이미 완성되어 있음              (0줄
 </div>
 
 
-<div class="slide"><span class="slide-label">15:46</span>
+<div class="slide"><span class="slide-label">15:51</span>
 <h2>19. 치트시트 + 과제 안내</h2>
 <span class="timer-badge">⏱ 2분</span>
 
@@ -1186,7 +1299,7 @@ Level 3: 출근하면 보고서가 이미 완성되어 있음              (0줄
 </div>
 
 
-<div class="slide"><span class="slide-label">15:50</span>
+<div class="slide"><span class="slide-label">15:55</span>
 <h2>20. Q&A + 마무리 + Dooray 제출</h2>
 
 <h3>감사합니다!</h3>
@@ -5486,8 +5599,6 @@ Claude Code에게:
 <h2>교육 후 수강생에게 안내할 것</h2>
 
 <ul>
-<li><strong>치트시트</strong> 활용: 실습 폴더 안의 <code class="il">치트시트.md</code> 참고</li>
-<li><strong>1개월 후 결과물 제출</strong>: 본인 업무에 적용한 결과 (Before/After)</li>
 <li><strong>막히면</strong>: Claude Code에게 직접 "도와줘"라고 말하면 됨</li>
 <li><strong>문의</strong>: 정유경 전임 (yk.j@nhn.com)</li>
 </ul>
