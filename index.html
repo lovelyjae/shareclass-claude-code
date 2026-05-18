@@ -4552,5 +4552,112 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(h) switchTab(h);
 });
 </script>
+
+<!-- ===== 익명 채팅 위젯 (Firebase Firestore) ===== -->
+<style>
+  #chat-btn{position:fixed;right:20px;bottom:20px;z-index:9998;width:56px;height:56px;border-radius:50%;background:#7c3aed;color:#fff;border:0;box-shadow:0 4px 14px rgba(0,0,0,.18);font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+  #chat-btn:hover{transform:scale(1.08)}
+  #chat-panel{position:fixed;right:20px;bottom:88px;z-index:9999;width:340px;height:480px;max-height:75vh;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.22);display:none;flex-direction:column;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
+  #chat-panel.open{display:flex}
+  #chat-head{padding:14px 16px;background:#7c3aed;color:#fff;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  #chat-head small{display:block;font-weight:400;font-size:11px;opacity:.85;margin-top:2px}
+  #chat-close{background:none;border:0;color:#fff;font-size:20px;cursor:pointer;line-height:1}
+  #chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:6px;background:#f9fafb}
+  .chat-msg{background:#fff;padding:8px 12px;border-radius:10px;max-width:88%;word-break:break-word;font-size:14px;border-left:3px solid #ddd;line-height:1.45}
+  .chat-msg-time{font-size:10px;color:#999;margin-top:4px}
+  #chat-form{display:flex;gap:6px;padding:10px;border-top:1px solid #eee;background:#fff}
+  #chat-input{flex:1;padding:9px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none}
+  #chat-input:focus{border-color:#7c3aed}
+  #chat-send{padding:9px 14px;background:#7c3aed;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
+  #chat-send:disabled{opacity:.5;cursor:not-allowed}
+  #chat-empty{color:#999;font-size:13px;text-align:center;padding:20px}
+  @media(max-width:480px){#chat-panel{right:10px;left:10px;width:auto;bottom:80px}}
+</style>
+
+<button id="chat-btn" aria-label="익명 채팅 열기" title="익명 채팅">💬</button>
+<div id="chat-panel" role="dialog" aria-label="익명 채팅창">
+  <div id="chat-head">
+    <div>익명 채팅<small>이름 없이 자유롭게 떠들어요</small></div>
+    <button id="chat-close" aria-label="닫기">✕</button>
+  </div>
+  <div id="chat-msgs"><div id="chat-empty">아직 메시지가 없어요. 첫 글 남겨보세요.</div></div>
+  <form id="chat-form">
+    <input id="chat-input" type="text" placeholder="하고 싶은 말..." maxlength="500" autocomplete="off" />
+    <button id="chat-send" type="submit">전송</button>
+  </form>
+</div>
+
+<script type="module">
+  // ⚠️ Firebase 콘솔(https://console.firebase.google.com)에서 받은 config로 교체하세요.
+  // 교체 전까지는 채팅 버튼이 숨겨집니다.
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const $btn = document.getElementById("chat-btn");
+  const $panel = document.getElementById("chat-panel");
+  const $close = document.getElementById("chat-close");
+  const $form = document.getElementById("chat-form");
+  const $input = document.getElementById("chat-input");
+  const $msgs = document.getElementById("chat-msgs");
+
+  $close.addEventListener("click", () => $panel.classList.remove("open"));
+  $btn.addEventListener("click", () => $panel.classList.toggle("open"));
+
+  if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+    console.warn("[chat] Firebase config 미설정 — 채팅 버튼 숨김");
+    $btn.style.display = "none";
+  } else {
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+    const { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp } =
+      await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const msgsRef = collection(db, "chat-messages");
+
+    const palette = ["#7c3aed","#06b6d4","#10b981","#f59e0b","#ef4444","#ec4899","#3b82f6","#8b5cf6"];
+    const myColor = palette[Math.floor(Math.random() * palette.length)];
+
+    const escape = s => s.replace(/[<>&"']/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;","\"":"&quot;","'":"&#39;"}[c]));
+    const fmtTime = ts => ts?.toDate ? ts.toDate().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"}) : "";
+
+    $form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = $input.value.trim();
+      if (!text) return;
+      $input.value = "";
+      try {
+        await addDoc(msgsRef, { text, color: myColor, createdAt: serverTimestamp() });
+      } catch (err) {
+        console.error("[chat] send failed:", err);
+        alert("전송 실패: " + err.message);
+      }
+    });
+
+    const q = query(msgsRef, orderBy("createdAt", "desc"), limit(100));
+    onSnapshot(q, (snap) => {
+      if (snap.empty) {
+        $msgs.innerHTML = '<div id="chat-empty">아직 메시지가 없어요. 첫 글 남겨보세요.</div>';
+        return;
+      }
+      const items = [];
+      snap.forEach(d => items.push(d.data()));
+      items.reverse();
+      $msgs.innerHTML = items.map(m =>
+        `<div class="chat-msg" style="border-left-color:${m.color || "#ddd"}">${escape(m.text || "")}<div class="chat-msg-time">${fmtTime(m.createdAt)}</div></div>`
+      ).join("");
+      $msgs.scrollTop = $msgs.scrollHeight;
+    }, (err) => {
+      console.error("[chat] subscribe failed:", err);
+      $msgs.innerHTML = `<div id="chat-empty">채팅을 불러오지 못했어요.<br>(${escape(err.code || "error")})</div>`;
+    });
+  }
+</script>
 </body>
 </html>
