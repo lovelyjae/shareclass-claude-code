@@ -344,6 +344,53 @@ claude --version
 </ul>
 
 
+<h2>📁 AI를 켜기 전에 — "작업 폴더" 먼저 만들기</h2>
+
+<blockquote><strong>왜 중요해요?</strong> Claude Code는 <strong>"켠 폴더"와 그 안쪽만 볼 수 있어요.</strong> 마치 그 폴더가 Claude의 작업실인 셈이죠. 그래서 폴더를 어떻게 두고 켜느냐가 처음부터 중요합니다.</blockquote>
+
+<p><strong>하지 말 것:</strong> 바탕화면 전체나 <code class="il">C:\</code>·홈 폴더 같은 <strong>너무 넓은 곳에서 켜지 마세요.</strong> Claude가 수많은 파일을 보게 되고, 헷갈리고, 실수할 위험도 커집니다.</p>
+
+<p><strong>권장:</strong> 내 문서 안에 <strong>AI 전용 폴더 하나</strong>를 만들고, 그 안에 <strong>일거리별로 하위 폴더</strong>를 두세요. 이렇게요 👇</p>
+
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
+📁 내문서
+ └─ 📁 ai-작업               ← Claude Code는 "이 안"에서 켜기
+     ├─ 📁 두레이-업무        ← 두레이 자동화용 (.env 토큰 파일은 여기!)
+     │    └─ 📄 .env          ← DOORAY_API_TOKEN=조직코드:토큰
+     ├─ 📁 보고서             ← 주간보고·문서 정리
+     ├─ 📁 자료조사           ← 검색·요약·정리
+     └─ 📁 연습장             ← 마음껏 실험해보는 공간
+</code></pre></div>
+
+<blockquote>💡 규칙 3가지: <strong>① 일(프로젝트) 하나당 폴더 하나</strong> · <strong>② 관련 파일은 그 폴더 안에 모아두기</strong> · <strong>③ Claude Code는 항상 "그 일의 폴더"에서 켜기.</strong></blockquote>
+
+<h3>그래서 어떻게 "그 폴더에서" 켜나요?</h3>
+
+<p>터미널을 <strong>그 폴더 위치에서</strong> 연 다음 <code class="il">claude</code> 를 실행하면 됩니다. 폴더에서 터미널을 여는 방법:</p>
+
+<div class="os-cards">
+<div class="os-card os-mac"><div class="os-header">🍎 Mac</div><div class="os-body">Finder에서 폴더를 <strong>우클릭 → "폴더에서 새로운 터미널 열기"</strong><br>또는 터미널에서:<br><code class="il">cd ~/Documents/ai-작업/두레이-업무</code><br><code class="il">claude</code></div></div>
+<div class="os-card os-win"><div class="os-header">🪟 Windows</div><div class="os-body">폴더 안에서 <strong>주소창에 <code class="il">cmd</code> 입력 후 Enter</strong> (그 폴더에서 창이 열림)<br>또는 PowerShell에서:<br><code class="il">cd $HOME\Documents\ai-작업\두레이-업무</code><br><code class="il">claude</code></div></div>
+</div>
+
+<p><strong>지금 어느 폴더에 있는지</strong> 확인하고 싶으면 — Mac: <code class="il">pwd</code> / Windows: <code class="il">cd</code> (단독 입력) <span class="arr">→</span> 현재 폴더 경로가 나옵니다.</p>
+
+<blockquote>🔗 <strong>두레이와의 연결 포인트:</strong> 나중에 Dooray MCP를 <code class="il">.env</code> 방식(준비 2의 방법 B)으로 쓸 거라면, 토큰을 적은 <code class="il">.env</code> 파일은 <strong>위 "두레이-업무" 폴더에 두고, 꼭 그 폴더에서 Claude Code를 켜야</strong> 합니다.</blockquote>
+
+<details class="note"><summary>폴더 이름, 한글로 지어도 되나요? / 더 팁</summary><div class="note-body">
+<ul>
+<li>한글 폴더명도 동작은 하지만, <strong>영문·숫자·하이픈(-)</strong>으로 지으면 터미널에서 경로 칠 때 훨씬 편해요. (예: <code class="il">dooray-work</code>, <code class="il">reports</code>)</li>
+<li>띄어쓰기는 피하세요. 꼭 쓰려면 경로를 따옴표로 감싸야 합니다. (예: <code class="il">cd "my work"</code>)</li>
+<li>일이 끝난 폴더는 <code class="il">완료</code> 같은 보관 폴더로 옮기면 작업방이 깔끔해져요.</li>
+<li>중요한 자료가 든 폴더에서 켤 때는, Claude가 파일을 바꾸기 전에 <strong>매번 허용 여부를 물어봅니다.</strong> 잘 보고 「허용」/「거부」를 누르세요.</li>
+</ul>
+</div></details>
+
+<ul class="cl">
+<li><label><input type="checkbox"  onchange="saveChecks()"><span>AI 작업 폴더 만들고, 그 폴더에서 Claude Code 켜보기 완료</span></label></li>
+</ul>
+
+
 <h2>자주 묻는 질문</h2>
 
 <p><strong>Q: Node.js가 뭔가요? 위험한 건 아닌가요?</strong></p>
@@ -663,83 +710,281 @@ playwriter -s 1 -e &quot;console.log(await page.title())&quot;
 </ul>
 </div><div class="tc" id="tab-prep2" style="display:none"><h1>Dooray MCP 설치</h1>
 
-<blockquote><strong>할 것:</strong> Claude Code에서 두레이 태스크/위키/드라이브/메신저를 직접 다룰 수 있게 연결합니다.</blockquote>
-<blockquote><strong>목표:</strong> Claude Code에서 "내 두레이 태스크 보여줘"가 동작하는 것!</blockquote>
-<blockquote><strong>기본 설치(준비 1)가 완료된 후 진행해주세요. Dooray 실습을 하려면 이 단계가 필요합니다.</strong></blockquote>
+<blockquote><strong>한 줄 요약:</strong> 두레이 사이트를 직접 열지 않아도, Claude Code에게 한국어로 말만 하면 두레이 일을 대신 해주게 만드는 작업입니다.</blockquote>
+<blockquote><strong>목표:</strong> 터미널에 <code class="il">내 두레이 태스크 보여줘</code> 라고 적었을 때 내 업무 목록이 주르륵 나오는 것!</blockquote>
+<blockquote>⚠️ <strong>먼저 준비 1(기본 설치)을 끝내야 합니다.</strong> Claude Code가 깔려 있어야 여기를 진행할 수 있어요. 시간은 천천히 해도 <strong>10분</strong>이면 충분합니다.</blockquote>
 
 
-<h2>Step 1: Dooray API 토큰 발급</h2>
+<h2>0. 이게 뭐예요? 어디에 쓰는 거예요?</h2>
 
+<p><strong>MCP</strong>는 쉽게 말해 <strong>"열쇠 꾸러미"</strong>예요. Claude Code에게 두레이 열쇠를 쥐여주면, Claude가 나 대신 두레이 문을 열고 들어가 일을 해줍니다.</p>
+
+<div class="os-cards">
+<div class="os-card os-win"><div class="os-header">😮‍💨 설치 안 했을 때</div><div class="os-body">두레이 사이트 열기 → 프로젝트 찾기 → 태스크 클릭 → 내용 읽기 → 댓글 칸 찾기 → 타이핑 → 등록…<br><br><strong>이걸 매번 손으로 반복</strong></div></div>
+<div class="os-card os-mac"><div class="os-header">😎 설치한 뒤</div><div class="os-body">Claude Code에 이렇게만 적으면 끝:<br><code class="il">오늘 회의록 위키에 정리하고, 김대리 태스크에 "확인했어요" 댓글 달아줘</code><br><br><strong>나머지는 Claude가 알아서</strong></div></div>
+</div>
+
+<p>실제로 이런 일에 씁니다 👇</p>
 <ul>
-<li>브라우저에서 <strong>Dooray</strong> 접속 (https://nhn.dooray.com)</li>
-<li>우측 상단 <strong>프로필 아이콘</strong> 클릭</li>
-<li><strong>설정</strong> 클릭</li>
-<li>좌측 메뉴에서 <strong>API 토큰</strong> 클릭</li>
-<li><strong>토큰 생성</strong> 버튼 클릭</li>
-<li>생성된 토큰을 <strong>메모장에 복사</strong>해두세요</li>
+<li>📋 <strong>내 할 일 확인</strong> — "내 두레이 태스크 중 오늘까지인 거 알려줘"</li>
+<li>✍️ <strong>업무 보고</strong> — "이번 주 한 일 정리해서 주간보고 태스크 만들어줘"</li>
+<li>💬 <strong>댓글·소통</strong> — "그 태스크에 '내일까지 처리할게요' 댓글 달아줘"</li>
+<li>📁 <strong>파일·위키</strong> — "회의록 위키 페이지로 만들어줘", "드라이브에서 그 파일 받아줘"</li>
+</ul>
+
+<blockquote>💡 정리: <strong>두레이에서 손으로 하던 반복 작업을, 말 한마디로 시키는 것</strong>이 목적이에요.</blockquote>
+
+
+<h2>🧰 시작 전 준비물 (딱 3개)</h2>
+<ul>
+<li>✅ <strong>준비 1 완료</strong> — 터미널에 <code class="il">claude</code> 라고 쳤을 때 Claude Code가 실행됨</li>
+<li>✅ <strong>두레이 로그인 가능</strong> — 브라우저에서 <code class="il">https://nhn.dooray.com</code> 들어가짐</li>
+<li>✅ <strong>메모장 하나 열어두기</strong> — 잠시 뒤 받을 "토큰"을 붙여둘 곳 (윈도우 메모장 / 맥 메모 앱)</li>
+</ul>
+
+
+<h2>Step 1. 두레이 토큰(=비밀 열쇠) 발급받기</h2>
+
+<p><strong>토큰</strong>이란? Claude가 "이 사람이 진짜 본인 맞아요"라고 두레이에 보여주는 <strong>긴 비밀번호 한 줄</strong>이에요. 이것만 있으면 두레이 웹에 매번 로그인하지 않아도 됩니다.</p>
+
+<p>아래를 순서대로 따라오세요. (천천히, 하나씩!)</p>
+<ul>
+<li>1️⃣ 브라우저에서 <code class="il">https://nhn.dooray.com</code> 접속해서 로그인</li>
+<li>2️⃣ 화면 <strong>오른쪽 위, 내 프로필 사진(동그란 아이콘)</strong> 클릭</li>
+<li>3️⃣ 메뉴가 펼쳐지면 <strong>「개인 설정」</strong> 클릭</li>
+<li>4️⃣ 왼쪽 메뉴 목록에서 <strong>「API」</strong> 클릭</li>
+<li>5️⃣ <strong>「개인 인증 토큰」</strong> 항목에서 <strong>「토큰 추가」(또는 「생성」)</strong> 버튼 클릭</li>
+<li>6️⃣ 이름은 아무거나 (예: <code class="il">claude-code</code>) 적고 만들기 → <strong>긴 글자가 생성됨</strong></li>
+<li>7️⃣ 그 글자를 <strong>복사해서 아까 열어둔 메모장에 붙여넣기</strong> 📋</li>
 </ul>
 
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
-토큰 형식: 조직코드:토큰문자열
-예시: ajjt1imxmtj4:tyFuu5obTEGSO3sh5cxgow
+토큰은 이렇게 생겼어요 (조직코드:긴문자열 형태):
+ajjt1imxmtj4:tyFuu5obTEGSO3sh5cxgow
+
+→ 콜론(:) 앞뒤를 통째로, 한 글자도 빠짐없이 복사하세요.
 </code></pre></div>
 
-<blockquote>이 토큰은 비밀번호와 같습니다. 다른 사람에게 공유하지 마세요!</blockquote>
+<blockquote>🔒 <strong>이 토큰은 내 비밀번호와 똑같습니다.</strong> 메신저·메일·캡처로 남에게 보내지 마세요. 혹시 새어나갔다면 위 화면에서 그 토큰을 <strong>삭제</strong>하고 새로 만들면 됩니다.</blockquote>
+<blockquote>✅ <strong>이렇게 보이면 성공:</strong> 메모장에 <code class="il">조직코드:긴문자열</code> 형태의 한 줄이 저장돼 있다.</blockquote>
 
 <ul class="cl">
-<li><label><input type="checkbox"  onchange="saveChecks()"><span>API 토큰 발급 완료</span></label></li>
+<li><label><input type="checkbox"  onchange="saveChecks()"><span>API 토큰 발급 + 메모장에 복사 완료</span></label></li>
 </ul>
 
 
-<h2>Step 2: 환경변수 등록</h2>
+<h2>Step 2. 토큰과 MCP "연결하기" — 핵심! (방법 3개 중 하나만 선택)</h2>
 
-<p>터미널에서 아래를 실행합니다 (토큰을 복사한 값으로 교체):</p>
+<p>여기가 <strong>가장 중요한 단계</strong>예요. 지금 <strong>토큰(Step 1)</strong>은 받았죠? 이제 그 토큰을 MCP가 읽을 수 있게 <strong>이어주는</strong> 겁니다. 토큰을 <strong>"어디에 둘지"</strong>만 다를 뿐, 세 방법 모두 결과는 똑같아요.</p>
 
-<div class="os-cards">
-<div class="os-card os-win"><div class="os-header">🪟 Windows</div><div class="os-body">PowerShell에서:<br><code class="il">[System.Environment]::SetEnvironmentVariable("DOORAY_API_TOKEN", "여기에_복사한_토큰", "User")</code><br><br>설정 후 PowerShell을 닫고 새로 열어야 반영됩니다.</div></div>
-<div class="os-card os-mac"><div class="os-header">🍎 Mac</div><div class="os-body">터미널에서:<br><code class="il">echo 'export DOORAY_API_TOKEN=여기에_복사한_토큰' >> ~/.zshrc</code><br><code class="il">source ~/.zshrc</code></div></div>
-</div>
+<blockquote>🌟 <strong>처음이라면 → 방법 A</strong> 하나만 보세요. 한 줄로 설치와 토큰 연결이 동시에 끝나고, 어느 폴더에서든 동작합니다. (방법 B·C는 접혀 있어요. 필요할 때만 펼쳐 보세요.)</blockquote>
 
-<ul class="cl">
-<li><label><input type="checkbox"  onchange="saveChecks()"><span>환경변수 등록 완료</span></label></li>
+<div class="tbl-wrap"><table><thead><tr>
+<th>방법</th>
+<th>토큰을 두는 곳</th>
+<th>이런 분께 좋아요</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>A (추천)</strong></td>
+<td>등록 명령 안에 같이</td>
+<td>그냥 제일 간단하게 끝내고 싶다</td>
+</tr>
+<tr>
+<td>B</td>
+<td><code class="il">.env</code> 파일</td>
+<td>늘 켜는 작업 폴더가 정해져 있다</td>
+</tr>
+<tr>
+<td>C</td>
+<td>컴퓨터 전역 환경변수</td>
+<td>여러 폴더에서 두루 쓰고 싶다</td>
+</tr>
+</tbody></table></div>
+
+
+<h3>✅ 방법 A — 등록할 때 토큰을 같이 넣기 (제일 쉬움 · 추천)</h3>
+
+<p>아래 <strong>한 줄</strong>이면 <strong>MCP 설치 + 토큰 연결</strong>이 한 번에 끝납니다. <code class="il">조직코드:토큰</code> 부분만 Step 1에서 받은 내 토큰으로 바꿔서 터미널에 붙여넣고 Enter 하세요.</p>
+
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
+claude mcp add -s user dooray-mcp -e DOORAY_API_TOKEN=조직코드:토큰 -- npx @geonheeye/dooray-mcp@latest
+</code></pre></div>
+
+<blockquote>💡 가운데 <code class="il">-e DOORAY_API_TOKEN=...</code> 부분이 바로 <strong>"토큰을 MCP에 건네주는"</strong> 연결 고리예요. (<code class="il">-e</code> 는 environment=환경변수의 e)</blockquote>
+
+<ul>
+<li>✅ 어느 폴더에서 Claude Code를 켜도 <strong>항상 동작</strong></li>
+<li>✅ 따로 파일·환경변수를 안 만들어도 됨</li>
+<li>📁 토큰은 내 컴퓨터의 Claude 설정파일(<code class="il">~/.claude.json</code>)에만 저장됩니다 (남에게 안 보임)</li>
 </ul>
 
+<p>👉 방법 A로 했으면 <strong>Step 3으로 바로 넘어가세요.</strong></p>
 
-<h2>Step 3: Dooray MCP 설치</h2>
 
-<p>Claude Code에 Dooray MCP를 등록합니다. 터미널에서:</p>
+<details class="note"><summary>📄 방법 B — .env 파일에 토큰 넣기 (작업 폴더가 정해진 분만 펼쳐보기)</summary><div class="note-body">
+<code class="il">.env</code>(이엔브이)는 <strong>비밀값을 적어두는 작은 메모 파일</strong>이에요. Dooray MCP는 켜질 때 이 파일을 자동으로 읽습니다.
 
+<p style="margin-top:10px"><strong>① 먼저 MCP만 설치</strong> (토큰 없이):</p>
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
 claude mcp add -s user dooray-mcp npx @geonheeye/dooray-mcp@latest
 </code></pre></div>
 
-<blockquote>이 한 줄이면 끝! 태스크, 위키, 드라이브, 메신저까지 전부 연결됩니다.</blockquote>
+<p><strong>② Claude Code를 켤 폴더</strong>(예: 내 작업 폴더)에 <code class="il">.env</code> 라는 파일을 만들고, 그 안에 <strong>딱 한 줄</strong>을 저장하세요:</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
+DOORAY_API_TOKEN=조직코드:토큰
+</code></pre></div>
+
+<p>명령으로 파일을 바로 만들고 싶다면 (그 폴더로 이동한 뒤):</p>
+<div class="os-cards">
+<div class="os-card os-mac"><div class="os-header">🍎 Mac (터미널)</div><div class="os-body"><code class="il">echo 'DOORAY_API_TOKEN=조직코드:토큰' > .env</code></div></div>
+<div class="os-card os-win"><div class="os-header">🪟 Windows (PowerShell)</div><div class="os-body"><code class="il">Set-Content -Path .env -Value "DOORAY_API_TOKEN=조직코드:토큰" -Encoding ascii</code></div></div>
+</div>
+
+<p><strong>③ 그 폴더에서 Claude Code를 실행</strong>하면, MCP가 같은 폴더의 <code class="il">.env</code>를 자동으로 읽어 토큰을 씁니다.</p>
+
+<p style="margin-top:10px"><strong>꼭 기억하세요:</strong></p>
+<ul>
+<li>⚠️ <code class="il">.env</code>는 <strong>Claude Code를 켠 바로 그 폴더</strong>에 있을 때만 읽혀요. <strong>다른 폴더에서 켜면 토큰을 못 찾습니다.</strong> (그래서 "여러 폴더에서 쓰는 분"에겐 방법 A나 C가 나아요.)</li>
+<li>⚠️ 메모장으로 만들 때 파일 이름이 정확히 <code class="il">.env</code> 여야 해요. (뒤에 <code class="il">.txt</code>가 붙으면 안 됨 — "모든 파일" 형식으로 저장)</li>
+<li>🔒 Git을 쓰는 폴더라면 <code class="il">.gitignore</code> 파일에 <code class="il">.env</code> 한 줄을 꼭 추가하세요. 토큰이 깃에 올라가면 큰일 납니다.</li>
+</ul>
+</div></details>
+
+
+<details class="note"><summary>🗄️ 방법 C — 컴퓨터 전역 환경변수에 넣기 (여러 폴더에서 쓰는 분)</summary><div class="note-body">
+<strong>환경변수</strong>는 컴퓨터 안의 <strong>"이름표 붙은 서랍"</strong>이에요. <code class="il">DOORAY_API_TOKEN</code> 서랍에 토큰을 넣어두면 어느 폴더에서 켜든 MCP가 꺼내 씁니다.
+
+<p style="margin-top:10px"><strong>① 먼저 MCP만 설치</strong> (토큰 없이):</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
+claude mcp add -s user dooray-mcp -- npx @geonheeye/dooray-mcp@latest
+</code></pre></div>
+
+<p><strong>② OS 환경변수 "서랍"에 토큰 저장</strong> (<code class="il">여기에_복사한_토큰</code>만 교체):</p>
+<div class="os-cards">
+<div class="os-card os-win"><div class="os-header">🪟 Windows (PowerShell)</div><div class="os-body"><code class="il">[System.Environment]::SetEnvironmentVariable("DOORAY_API_TOKEN", "여기에_복사한_토큰", "User")</code></div></div>
+<div class="os-card os-mac"><div class="os-header">🍎 Mac (터미널)</div><div class="os-body"><code class="il">echo 'export DOORAY_API_TOKEN=여기에_복사한_토큰' >> ~/.zshrc</code><br><code class="il">source ~/.zshrc</code></div></div>
+</div>
+
+<p><strong>③ 터미널과 Claude Code를 완전히 껐다 새로 켜야</strong> 반영됩니다.</p>
+<p>잘 들어갔는지 확인 — Mac: <code class="il">echo $DOORAY_API_TOKEN</code> / Windows: <code class="il">echo $env:DOORAY_API_TOKEN</code> <span class="arr">→</span> 토큰이 출력되면 OK.</p>
+</div></details>
 
 <ul class="cl">
-<li><label><input type="checkbox"  onchange="saveChecks()"><span>MCP 등록 완료</span></label></li>
+<li><label><input type="checkbox"  onchange="saveChecks()"><span>토큰 ↔ MCP 연결 완료 (A·B·C 중 하나)</span></label></li>
 </ul>
 
 
-<h2>Step 4: 확인</h2>
+<h2>Step 3. 연결 확인 — <code class="il">/mcp</code> 로 두 눈으로 확인하기</h2>
 
-<p>Claude Code를 <strong>새로 시작</strong>한 후:</p>
+<p>두 가지로 점검합니다. <strong>장소가 다르니 주의!</strong></p>
+
+<p><strong>① 터미널에서</strong> (MCP가 등록됐는지):</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
+claude mcp list
+</code></pre></div>
+<p><span class="arr">→</span> 목록에 <code class="il">dooray-mcp</code> 가 보이면 "등록"은 OK.</p>
+
+<p><strong>② Claude Code <em>안에서</em></strong> — 이게 진짜 <strong>"연결됐는지"</strong> 확인입니다. Claude Code를 켠 다음, 입력창에 (OS 터미널 말고, <strong>Claude와 대화하는 그 칸</strong>에!) 이렇게 칩니다:</p>
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
+/mcp
+</code></pre></div>
+
+<p><code class="il">/mcp</code> 를 치면 연결된 MCP 목록과 <strong>상태</strong>가 나옵니다. <code class="il">dooray-mcp</code> 옆을 보세요:</p>
+<ul>
+<li>🟢 <strong>connected</strong> + 도구 개수(예: 30 tools)가 보임 <span class="arr">→</span> <strong>토큰 연결까지 성공! 🎉</strong></li>
+<li>🟡 <strong>connecting / pending</strong> <span class="arr">→</span> 아직 연결 중. 잠깐 기다렸다 다시 <code class="il">/mcp</code></li>
+<li>🔴 <strong>failed</strong> (도구 0개) <span class="arr">→</span> 토큰이 안 읽힌 것. 거의 항상 <strong>Step 2 문제</strong>예요 (토큰 오타, 또는 방법 B에서 <code class="il">.env</code> 위치가 틀림). Step 2를 다시 하세요.</li>
+</ul>
+
+<blockquote>✅ <strong>이렇게 보이면 성공:</strong> <code class="il">/mcp</code> 에서 <code class="il">dooray-mcp</code> 가 <strong>connected</strong>, 도구 개수가 1개 이상.</blockquote>
+
+<ul class="cl">
+<li><label><input type="checkbox"  onchange="saveChecks()"><span>/mcp 에서 connected 확인 완료</span></label></li>
+</ul>
+
+
+<h2>Step 4. 진짜 일 시켜보기</h2>
+
+<p>Claude Code 입력창에 이렇게 적어보세요:</p>
 
 <div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
 내 두레이 태스크 보여줘
 </code></pre></div>
 
-<p>내 업무 목록이 나오면 성공! ✅</p>
+<p>내 업무 목록이 나오면 <strong>전부 성공! 🎉</strong></p>
+<p>처음 실행하면 Claude가 <em>"dooray 도구를 써도 될까요?"</em>라고 물어볼 수 있어요. <strong>「허용(Allow)」</strong>을 눌러주면 됩니다.</p>
+
+<blockquote>✅ <strong>이렇게 보이면 성공:</strong> 내 두레이 업무 목록이 화면에 나온다.</blockquote>
 
 <ul class="cl">
-<li><label><input type="checkbox"  onchange="saveChecks()"><span>두레이 연동 확인 완료</span></label></li>
+<li><label><input type="checkbox"  onchange="saveChecks()"><span>두레이 연동 테스트 성공</span></label></li>
 </ul>
+
+
+<h2>💪 컴퓨터를 바꿨거나 갑자기 안 될 때 — 혼자 고치기</h2>
+
+<blockquote>가장 중요한 사실 2가지: <strong>① 토큰은 한 번 받으면 계속 써요</strong> (두레이 웹에서 로그아웃돼도 토큰은 살아 있음). <strong>② 연결(Step 2)과 MCP 등록은 "그 컴퓨터에만" 저장</strong>됩니다. 그래서 컴퓨터를 바꾸면 <strong>Step 2부터 다시</strong> 하면 돼요. (토큰은 메모장에 있던 그대로 재사용!)</blockquote>
+
+<p><strong>먼저 상태를 점검</strong>하세요. 이 2개면 원인이 바로 보입니다:</p>
+<div class="os-cards">
+<div class="os-card os-win"><div class="os-header">① MCP 등록 확인 (터미널)</div><div class="os-body"><code class="il">claude mcp list</code><br><br>목록에 <code class="il">dooray-mcp</code> 없으면 <strong>→ Step 2 다시</strong></div></div>
+<div class="os-card os-mac"><div class="os-header">② 연결 상태 확인 (Claude 안)</div><div class="os-body"><code class="il">/mcp</code><br><br><strong>connected</strong> 아니면 토큰 문제 <strong>→ Step 2 다시</strong></div></div>
+</div>
+
+<div class="tbl-wrap"><table><thead><tr>
+<th>이런 상황이면</th>
+<th>원인</th>
+<th>이렇게 하세요</th>
+</tr></thead><tbody>
+<tr>
+<td>💻 <strong>새 컴퓨터/노트북</strong>으로 바꿨다</td>
+<td>새 컴퓨터엔 등록·토큰이 없음</td>
+<td>메모장의 토큰으로 <strong>Step 2(택한 방법)</strong> 그대로 다시 (토큰 재발급 불필요)</td>
+</tr>
+<tr>
+<td>🔓 두레이 웹에서 <strong>로그아웃됐다</strong></td>
+<td>웹 로그인과 토큰은 별개</td>
+<td>걱정 마세요. <strong>토큰은 그대로 동작</strong>합니다</td>
+</tr>
+<tr>
+<td>🔴 <code class="il">/mcp</code>에서 <strong>failed</strong> / 도구 0개</td>
+<td>토큰이 MCP에 안 읽힘</td>
+<td><strong>Step 2 점검</strong>: 토큰 오타? (B면) <code class="il">.env</code>가 켠 폴더에 있나?</td>
+</tr>
+<tr>
+<td>❌ "인증 실패 / 401 / unauthorized"</td>
+<td>토큰이 틀렸거나 만료</td>
+<td>토큰 오타 확인, 안 되면 <strong>새로 발급(Step 1)</strong></td>
+</tr>
+<tr>
+<td>🤔 분명 했는데 두레이가 안 된다</td>
+<td>Claude Code를 안 껐다 켬</td>
+<td>Claude Code <strong>완전 종료 후 재실행</strong> → 다시 <code class="il">/mcp</code></td>
+</tr>
+<tr>
+<td>😵 메모장 토큰을 잃어버렸다</td>
+<td>토큰은 다시 못 봄(분실 시 재발급)</td>
+<td>Step 1에서 <strong>새 토큰 발급</strong> (옛 토큰은 삭제)</td>
+</tr>
+</tbody></table></div>
+
+<details class="note"><summary>그래도 안 될 때 — 깨끗하게 지우고 다시 연결하기</summary><div class="note-body">
+기존 등록을 지우고 <strong>방법 A(토큰 포함)</strong>로 다시 등록하면 대부분 해결됩니다. <code class="il">조직코드:토큰</code>만 내 토큰으로 바꾸세요.
+<div class="code-wrap"><button class="copy-btn" onclick="copyCode(this)" title="클릭하면 복사됩니다">📋 복사</button><pre><code class="">
+claude mcp remove dooray-mcp -s user
+claude mcp add -s user dooray-mcp -e DOORAY_API_TOKEN=조직코드:토큰 -- npx @geonheeye/dooray-mcp@latest
+</code></pre></div>
+그 다음 Claude Code를 껐다 켜고 <code class="il">/mcp</code> 로 connected 확인 → <code class="il">내 두레이 태스크 보여줘</code> 로 테스트하세요.
+</div></details>
+
+<blockquote>💡 <strong>팁:</strong> 메모장에 적어둔 토큰은 컴퓨터를 바꿔도 다시 쓰는 "재산"입니다. 안전한 곳(비밀번호 관리 앱 등)에 보관해두면 다음에 5분이면 복구돼요.</blockquote>
 
 
 <h2>Dooray MCP로 할 수 있는 것들</h2>
 
 <div class="tbl-wrap"><table><thead><tr>
 <th>기능</th>
-<th>예시</th>
+<th>이렇게 말하면 돼요</th>
 </tr></thead><tbody>
 <tr>
 <td>태스크 조회/생성/수정</td>
@@ -767,7 +1012,7 @@ claude mcp add -s user dooray-mcp npx @geonheeye/dooray-mcp@latest
 </tr>
 </tbody></table></div>
 
-<p><strong>안 되면?</strong> 교육 당일 보조강사가 도와드립니다.</p>
+<p><strong>여기까지 다 해봐도 안 되면?</strong> 위 "혼자 고치기" 표에서 가장 비슷한 상황을 다시 한 번 보시고, 그래도 막히면 <strong>화면(에러 메시지)을 캡처</strong>해서 교육 당일 보조강사에게 보여주세요. 캡처가 가장 빠른 해결의 지름길입니다.</p>
 </div><div class="tc" id="tab-troubleshoot" style="display:none"><h1>Claude Code 설치 트러블슈팅 가이드</h1>
 
 <blockquote><strong>이 페이지는:</strong> 설치 중 만날 수 있는 에러 12종의 원인과 해결 방법을 모아놨습니다.</blockquote>
